@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Mutation } from 'react-apollo';
 
 import { smallMargin, largeMargin } from '../util/constants';
+import CreatePostMutation from '../server/mutations/createPost';
 
 const Container = styled.div`
   display: flex;
@@ -35,33 +37,33 @@ const Textarea = styled.textarea`
 
 class CreatePost extends Component {
   state = {
-    text: '',
-    textarea: '',
+    title: '',
+    content: '',
   };
-
-  onSubmit = el => {
-    el.preventDefault();
-    const { text, textarea } = this.state;
-
-    // mutation called here.
-  }
 
   onInput = el => {
     el.preventDefault();
     const { target } = el;
-    this.setState({ [target.type]: target.value });
+    this.setState({ [target.type === 'text' ? 'title' : 'content']: target.value });
   }
 
   render() {
-    const { text, textarea } = this.state;
+    const { title, content } = this.state;
 
     return (
       <Container>
-        <Form onSubmit={this.onSubmit}>
-          <Input placeholder="Title" value={text} onInput={this.onInput} />
-          <Textarea placeholder="Content" value={textarea} onInput={this.onInput} />
-          <button>Submit</button>
-        </Form>
+        <Mutation mutation={CreatePostMutation}>
+          {createPost => (
+            <Form onSubmit={e => {
+              e.preventDefault();
+              createPost({ variables: { title, content } });
+            }}>
+              <Input placeholder="Title" value={title} onInput={this.onInput} />
+              <Textarea placeholder="Content" value={content} onInput={this.onInput} />
+              <button>Submit</button>
+            </Form>
+          )}
+        </Mutation>
       </Container>
     );
   }

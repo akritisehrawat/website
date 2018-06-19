@@ -13,8 +13,9 @@ type User @model {
 
 type Post @model {
   id: ID! @isUnique
-  title: String!
+  title: String
+  content: String
 
   # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
-  author: User! @relation(name: "UserPosts")
+  author: User @relation(name: "UserPosts")
 }
