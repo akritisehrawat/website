@@ -14,7 +14,7 @@ const client = new ApolloClient({
 
 client
   .query({ query: getAllPosts })
-  .then(results => console.log('testing on server', results.data));
+  .then(results => console.log('testing', results.data));
 
 const ApolloWrappedApp = () => (
   <ApolloProvider client={client}>
