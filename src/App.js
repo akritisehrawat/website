@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import styled, { injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components';
 
 import Practice from './containers/Practice';
+import TIL from './containers/TIL';
+import CreatePost from './containers/CreatePost';
 
 injectGlobal`
-  html, body {
+  html, body, #root {
     width: 100vw;
     height: 100vh;
 
@@ -22,6 +24,8 @@ class App extends Component {
       <Router>
         <Fragment>
           <Route path="/practice" component={Practice} />
+          <Route path="/til" component={TIL} />
+          <Route path="/createpost" component={CreatePost} />
         </Fragment>
       </Router>
     );

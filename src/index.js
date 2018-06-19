@@ -5,7 +5,6 @@ import { ApolloProvider } from 'react-apollo';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import getAllPosts from './server/queries/getAllPosts';
 
 const client = new ApolloClient({
   uri: `${process.env.REACT_APP_GRAPHCOOL_SIMPLE_URI}`,
