@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Query } from 'react-apollo';
 
 import Post from '../components/Post';
+import GetAllPostsQuery from '../server/queries/getAllPosts';
 
 const Container = styled.div`
   display: flex;
@@ -10,14 +12,25 @@ const Container = styled.div`
   justify-content: space-around;
 `;
 
-const TIL = () => (
-  <Container>
-    <Post />
-    <Post />
-    <Post />
-    <Post />
-    <Post />
-  </Container>
-);
+class TIL extends Component {
+  render() {
+    return (
+      <Container>
+        <Query query={GetAllPostsQuery}>
+          {({ loading, error, data }) => {
+            if (loading) return <div>Loading</div>;
+            return data.allPosts.map((datum, index) => 
+              <Post
+                key={`post-${index}`}
+                title={datum.title}
+                content={datum.content}
+              />
+            );
+          }}
+        </Query>
+      </Container>
+    );
+  }
+}
 
 export default TIL;

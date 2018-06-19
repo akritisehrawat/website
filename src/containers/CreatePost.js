@@ -49,6 +49,7 @@ class CreatePost extends Component {
 
   render() {
     const { title, content } = this.state;
+    const { history } = this.props;
 
     return (
       <Container>
@@ -57,6 +58,8 @@ class CreatePost extends Component {
             <Form onSubmit={e => {
               e.preventDefault();
               createPost({ variables: { title, content } });
+              this.setState({ title: '', content: '' });
+              history.push('/til');
             }}>
               <Input placeholder="Title" value={title} onInput={this.onInput} />
               <Textarea placeholder="Content" value={content} onInput={this.onInput} />

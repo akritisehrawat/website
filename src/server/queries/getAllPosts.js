@@ -4,7 +4,8 @@ export default gql`
   {
     allPosts {
       id,
-      title
+      title,
+      content
     }
   }
 `;
